@@ -13,13 +13,25 @@ More on Lists
 =============
 
 The list data type has some more methods.  Here are all of the methods of list
-objects:
+objects with examples:
 
 
 .. method:: list.append(x)
    :noindex:
 
    Add an item to the end of the list.  Equivalent to ``a[len(a):] = [x]``.
+    >>> fruits = ['orange', 'mango', 'banana', 'apple']
+    >>> fruits.append('kiwi')   #list.extend() takes exactly one argument
+    >>> fruits
+    ['orange', 'mango', 'banana', 'apple', 'kiwi']
+    >>> fruits.append('grape','tomato')
+    Traceback (most recent call last):
+    File "<pyshell#6>", line 1, in <module>
+    fruits.append('grape','tomato')
+    TypeError: list.append() takes exactly one argument (2 given)
+    >>> fruits.append(['cherry', 'melon'])
+    >>> fruits
+    ['orange', 'mango', 'banana', 'apple', 'kiwi', ['cherry', 'melon']] 
 
 
 .. method:: list.extend(iterable)
@@ -28,6 +40,10 @@ objects:
    Extend the list by appending all the items from the iterable.  Equivalent to
    ``a[len(a):] = iterable``.
 
+    >>> fruits = ['orange', 'mango', 'banana', 'apple']
+    >>> fruits.extend(['kiwi', 'melon', 'cherry')  #extend() method iterates over its argument adding each element to the list
+    >>> fruits
+    ['orange', 'mango', 'banana', 'apple', 'kiwi', 'melon', 'cherry']
 
 .. method:: list.insert(i, x)
    :noindex:
@@ -36,6 +52,13 @@ objects:
    element before which to insert, so ``a.insert(0, x)`` inserts at the front of
    the list, and ``a.insert(len(a), x)`` is equivalent to ``a.append(x)``.
 
+    >>> fruits = ['orange', 'mango', 'banana', 'apple']
+    >>> fruits.insert(0, 'kiwi')  #extend() method iterates over its argument adding each element to the list
+    >>> fruits
+    ['kiwi','orange', 'mango', 'banana', 'apple']
+    fruits.insert(len(fruits), 'kiwi')
+    >>>fruits
+    ['kiwi','orange', 'mango', 'banana', 'apple', 'kiwi']
 
 .. method:: list.remove(x)
    :noindex:
@@ -43,6 +66,10 @@ objects:
    Remove the first item from the list whose value is equal to *x*.  It raises a
    :exc:`ValueError` if there is no such item.
 
+    >>> fruits = ['orange', 'mango', 'banana', 'apple', 'mango', 'cherry', 'kiwi']
+    >>> fruits.remove('mango')      #removes the  first element occourred
+    >>> fruits
+    ['orange', 'banana', 'apple', 'mango' ,'cherry', 'kiwi']
 
 .. method:: list.pop([i])
    :noindex:
@@ -53,12 +80,23 @@ objects:
    is optional, not that you should type square brackets at that position.  You
    will see this notation frequently in the Python Library Reference.)
 
+    >>> fruits = ['orange', 'mango', 'banana', 'apple', 'mango', 'cherry', 'kiwi']
+    >>> fruits.pop()      #removes the  first element occourred
+    'kiwi'
+    >>> fruits
+    ['orange', 'mango', 'banana', 'apple', 'mango', 'cherry']
+    >>> fruits.pop(0)
+    'orange'
 
 .. method:: list.clear()
    :noindex:
 
    Remove all items from the list.  Equivalent to ``del a[:]``.
 
+    >>> fruits = ['orange', 'mango', 'banana', 'apple', 'mango', 'cherry', 'kiwi']
+    >>> fruits.clear()
+    >>> fruits
+    []
 
 .. method:: list.index(x[, start[, end]])
    :noindex:
@@ -71,11 +109,22 @@ objects:
    the list.  The returned index is computed relative to the beginning of the full
    sequence rather than the *start* argument.
 
+    >>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+    >>> fruits.index('banana')
+    3
+    >>> fruits.index('banana', 4)  # Find next banana starting a position 4
+    6
 
 .. method:: list.count(x)
    :noindex:
 
    Return the number of times *x* appears in the list.
+    
+    >>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+    >>> fruits.count('apple')
+    2
+    >>> fruits.count('tangerine')
+    0
 
 
 .. method:: list.sort(*, key=None, reverse=False)
@@ -84,41 +133,30 @@ objects:
    Sort the items of the list in place (the arguments can be used for sort
    customization, see :func:`sorted` for their explanation).
 
+    >>>fruits=['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange', 'grape']
+    fruits.sort()
+    >>> fruits
+    ['apple', 'apple', 'banana', 'banana', 'grape', 'kiwi', 'orange', 'pear']
 
 .. method:: list.reverse()
    :noindex:
 
    Reverse the elements of the list in place.
-
+    >>>fruits=['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange', 'grape']
+    fruits.reverse()
+    >>> fruits
+    ['grape', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
 
 .. method:: list.copy()
    :noindex:
 
    Return a shallow copy of the list.  Equivalent to ``a[:]``.
 
+    >>> j=fruits.copy()
+    >>> j
+    ['grape', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
 
-An example that uses most of the list methods::
 
-    >>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
-    >>> fruits.count('apple')
-    2
-    >>> fruits.count('tangerine')
-    0
-    >>> fruits.index('banana')
-    3
-    >>> fruits.index('banana', 4)  # Find next banana starting a position 4
-    6
-    >>> fruits.reverse()
-    >>> fruits
-    ['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange']
-    >>> fruits.append('grape')
-    >>> fruits
-    ['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange', 'grape']
-    >>> fruits.sort()
-    >>> fruits
-    ['apple', 'apple', 'banana', 'banana', 'grape', 'kiwi', 'orange', 'pear']
-    >>> fruits.pop()
-    'pear'
 
 You might have noticed that methods like ``insert``, ``remove`` or ``sort`` that
 only modify the list have no return value printed -- they return the default
